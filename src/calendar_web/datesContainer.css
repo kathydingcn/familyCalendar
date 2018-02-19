@@ -1,0 +1,105 @@
+*{
+    margin:0;
+    padding:0;
+}
+html{
+    font-size:250px;
+}
+
+
+.appFrame{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.datesFrame{
+    position:absolute;
+    width:2.05rem;
+    height:2.4rem;
+    padding:0.05rem;
+    background-color:#FADBD8;
+    top:50%;
+    left:50%;
+    margin-left:-1.05rem;
+    margin-top:-1.05rem;
+    border:0.01rem solid #A93226;
+    box-shadow:0.01rem 0.01rem 0.01rem #A93226;
+
+}
+#datesTitle{
+    margin:0 auto;
+    font-size:0.16rem;
+    /*background-color:blue;*/
+    color:#A93226;
+    text-align:center;
+
+    height:0.30rem;
+    line-height:0.30rem;
+    font-weight:bold;
+    position:relative;
+    width:50%;
+}
+#prevButton{
+    position:absolute;
+    width:0.37rem;
+    height:0.20rem;
+    top:0.15rem;
+    color:#A93226;
+    background:#EC7063;
+    cursor:pointer;
+    left:0.03rem;
+    z-index:10;
+    font-size:0.10rem;
+    box-shadow:0.01rem 0.01rem 0.01rem #A93226;
+}
+
+#nextButton{
+    position:absolute;
+    width:0.37rem;
+    height:0.20rem;
+    top:0.15rem;
+    color:#A93226;
+    background:#EC7063;
+    cursor:pointer;
+    right:0.03rem;
+    z-index:10;
+    font-size:0.10rem;
+    box-shadow:0.01rem 0.01rem 0.01rem #A93226;
+}
+
+.datesUl{
+    list-style:none;
+    overflow:hidden;
+}
+
+.datesLi{
+    width:0.25rem;
+    height:0.25rem;
+    line-height: 0.25rem;
+    float:left;
+    background:#F7DC6F;
+    font-size:0.10rem;
+    box-shadow:0.01rem 0.01rem 0.01rem #A93226;
+    /*border:0.01rem solid;*/
+    margin:0.01rem;
+    text-align:center;
+    cursor:pointer;
+
+}
+
+.datesLi:hover{
+    transform: scale(1.5, 1.5);
+}
+.activeLi{
+    background-color: #F9E79F;
+    transition: 0.3s ease;
+}
+
+.inactiveLi{
+    background-color: #FCF3CF;
+    color:#F8C471;
+    cursor: not-allowed;
+}
+.activeLi:hover{
+    transform: scale(1.5, 1.5);
+}
