@@ -14,13 +14,23 @@ import {Navbar, Nav, MenuItem,NavItem} from 'react-bootstrap';
 
 import './App.css';
 
-import DatesContainer from './datesContainer';
+import DatesCreater from './datesCreater';
+import EventList from './eventList';
 
 class App extends Component {
   render() {
     return (
       <div>
-        <DatesContainer/>
+        <Router>
+          <Switch>
+            {/*<Route path="/" exact component={DatesCreater}/>*/}
+            <Route path="/" exact render={(props)=><DatesCreater {...props}/>}/>
+            <Route path="/calendar" exact render={(props)=><DatesCreater {...props}/>}/>
+            <Route path="/calendar/eventlist/:id" exact render={(props)=><EventList {...props}/>}/>
+
+          </Switch>
+        </Router>
+
       </div>
     );
   }

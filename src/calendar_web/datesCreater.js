@@ -6,8 +6,10 @@ import axios from 'axios';
 
 
 import './datesContainer.css';
-import {ButtonToolbar,ButtonGroup,Button} from 'react-bootstrap';
+import {ButtonToolbar,Panel,Button} from 'react-bootstrap';
 
+import ShardFuns from './shared/shared';
+import EventList from './eventList';
 
 export default class DatesCreater extends React.Component{
 
@@ -29,6 +31,7 @@ export default class DatesCreater extends React.Component{
        }
        this.handlePrev = this.handlePrev.bind(this);
        this.handleNext = this.handleNext.bind(this);
+
 
    }
 
@@ -122,6 +125,9 @@ export default class DatesCreater extends React.Component{
         var  monthShow = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
         return(
+            <Panel className="appFrame">
+                <h3> Family Calendar</h3>
+                <Panel.Body>
             <div className="datesFrame">
 
                     <h6><Button id="prevButton" className="btn" onClick={this.handlePrev}>Prev</Button>
@@ -140,7 +146,19 @@ export default class DatesCreater extends React.Component{
                         {this.state.datesList.map((item,index)=>{
 
                             if(item.thisMonth){
-                                return   <li key={index} className="datesLi activeLi">{item.date}</li>;
+                                return   <li key={index} className="datesLi activeLi"
+                                             onClick={()=>{
+
+                                                 var id = ShardFuns.createDateId(this.state.currentYear, this.state.currentMonth, item.date);
+                                                 console.log('id is ', id);
+
+                                                 this.props.history.push({pathname:`/calendar/eventlist/${id}`, state:{dateId: id}});
+
+                                                 console.log('this props', this.props);
+                                                 return <EventList history={this.props.history} location={this.props.location}/>
+
+                                                  }}>
+                                    {item.date}</li>;
                             }else{
                                 return   <li key={index} className="datesLi inactiveLi">{item.date}</li>;
                             }
@@ -151,6 +169,8 @@ export default class DatesCreater extends React.Component{
                     </ul>
 
                 </div>
+                </Panel.Body>
+            </Panel>
 
         )
     }
