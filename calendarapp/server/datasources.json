@@ -1,0 +1,16 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "calendarapp": {
+    "host": "ds243768.mlab.com",
+    "port": 43768,
+    "url": "mongodb://admin:admin@ds243768.mlab.com:43768/familycalendar",
+    "database": "familycalendar",
+    "password": "admin",
+    "name": "calendarapp",
+    "user": "admin",
+    "connector": "mongodb"
+  }
+}

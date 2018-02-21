@@ -18,6 +18,7 @@ export default class EventList extends React.Component{
             eventList:[{eventTime:'02:03',eventContent:'go to bed'},{eventTime:'04:33',eventContent:'go shopping'}]
         }
         this.handleAddEvent = this.handleAddEvent.bind(this);
+        this.handleDelItem = this.handleDelItem.bind(this);
 
     }
 
@@ -29,6 +30,15 @@ export default class EventList extends React.Component{
             eventList: [...this.state.eventList, {eventTime:this.state.addTime, eventContent:this.state.addInput}]
         });
         console.log('in handleAddEvent', this.state.addInput, this.state.addTime);
+    }
+
+    handleDelItem(e,eventTime, eventContent){
+        e.preventDefault();
+        this.setState({
+            addInput: this.state.addInput,
+            addTime: this.state.addTime,
+            eventList: this.state.eventList.filter((item,index)=>{return item.eventTime !== eventTime})
+        });
     }
 
     render(){
@@ -43,9 +53,9 @@ export default class EventList extends React.Component{
                 <Panel.Body>
                     <ListGroup>{
                 this.state.eventList.map((item,index)=> {
-                    return <ListGroupItem> {item.eventContent} {item.eventTime}
+                    return <ListGroupItem key={index}> {item.eventContent} {item.eventTime}
                     <Button className="btn btn-primary">Edit</Button>
-                        <Button className="btn btn-danger">Del</Button>
+                        <Button className="btn btn-danger" onClick={(e)=>this.handleDelItem(e,item.eventTime,item.eventContent)}>Del</Button>
                     </ListGroupItem>
                 })
                     }</ListGroup>
