@@ -1,0 +1,45 @@
+.appFrame{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.panelBody{
+    overflow:hidden;
+    height:3rem;
+}
+
+#userEmail:valid{
+    border-color: green;
+}
+#userEmail:invalid{
+    border-color:red;
+}
+
+.verifyPassClass{
+    border-color:green;
+}
+
+.verifyFailedClass{
+    background-color:red;
+}
+
+.inputLabelBlock{
+    width: 1rem;
+    display: block;
+    margin:0 auto;
+}
+
+.inputLabelBlock label{
+    /*display: inline-block;*/
+    width: 0.7rem;
+    /*text-align: right;*/
+}
+
+.inputLabelBlock input{
+    border-color:green;
+}
+.signupBtn{
+margin-top: 0.15rem;
+}
+
+

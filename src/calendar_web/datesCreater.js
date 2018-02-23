@@ -6,7 +6,7 @@ import axios from 'axios';
 
 
 import './datesContainer.css';
-import {ButtonToolbar,Panel,Button} from 'react-bootstrap';
+import {Tab,Tabs,Panel,Button} from 'react-bootstrap';
 
 import ShardFuns from './shared/shared';
 import EventList from './eventList';
@@ -35,6 +35,10 @@ export default class DatesCreater extends React.Component{
 
    }
 
+    handleSelect(eventKey) {
+        eventKey.preventDefault();
+        alert(`selected ${eventKey}`);
+    }
 
 
    handlePrev(){
@@ -125,9 +129,10 @@ export default class DatesCreater extends React.Component{
         var  monthShow = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
         return(
-            <Panel className="appFrame">
-                <h3> Family Calendar</h3>
-                <Panel.Body>
+            <div className="appFrame">
+            <Tabs defaultActiveKey={1} id="calendar_tabs" className="tabsFrame" >
+                <Tab  eventKey={1} title=" My Calendar" >
+
             <div className="datesFrame">
 
                     <h6><Button id="prevButton" className="btn" onClick={this.handlePrev}>Prev</Button>
@@ -169,8 +174,17 @@ export default class DatesCreater extends React.Component{
                     </ul>
 
                 </div>
-                </Panel.Body>
-            </Panel>
+                </Tab>
+
+            <Tab eventKey={2} title=" Member1's Calendar">
+            <div className="tabsFrame"> member1's calendar</div>
+        </Tab>
+        <Tab eventKey={3} title=" Member2's Calendar">
+            Member2's Calendar
+        </Tab>
+        </Tabs>
+            </div>
+
 
         )
     }

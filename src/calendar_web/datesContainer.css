@@ -6,14 +6,77 @@ html{
     font-size:250px;
 }
 
+.panel{
+    margin:0 auto;
+}
 
 .appFrame{
     margin: 0 auto;
     text-align: center;
+    padding-top:0.2rem;
+    padding-bottom:0.3rem;
+}
+
+.panelBody{
+    overflow:hidden;
+    height:3rem;
+}
+
+.tabsFrame{
+
+
+}
+
+
+.tab-content{
+    margin:0.1rem auto;
+}
+
+.eventListFrame{
+    width:60%;
+}
+
+.textCenter{
+text-align:center;
+}
+
+
+
+.footer_navbar{
+    overflow:hidden;
+    color: #fff;
+}
+
+.footer_font{
+    position: absolute;
+    text-align:center;
+    margin-left:30%;
+    margin-top:.5%;
+    font-size: 0.05rem;
+    color:#9d9d9d;
+}
+
+.CarouselFrame{
+    height:1.3rem;
+    width:50%;
+    margin:0 auto;
+    position:relative;
+}
+
+.carousel-indicators li{
+    background-color:#000;
+}
+.carousel-indicators .active{
+    background-color:#A93226;
+
+}
+.CarouselInner{
+    height:325px; /*need to be updated*/
+    overflow:hidden;
 }
 
 .datesFrame{
-    position:absolute;
+    position:relative;
     width:2.05rem;
     height:2.4rem;
     padding:0.05rem;
@@ -21,7 +84,7 @@ html{
     top:50%;
     left:50%;
     margin-left:-1.05rem;
-    margin-top:-1.05rem;
+    /*margin-top:-1.05rem;*/
     border:0.01rem solid #A93226;
     box-shadow:0.01rem 0.01rem 0.01rem #A93226;
 
@@ -103,3 +166,4 @@ html{
 .activeLi:hover{
     transform: scale(1.5, 1.5);
 }
+

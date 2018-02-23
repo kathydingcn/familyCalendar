@@ -4,6 +4,9 @@
 import React from 'react';
 import axios from 'axios';
 
+import {
+    Link
+} from 'react-router-dom';
 
 import './datesContainer.css';
 import {ListGroup,ListGroupItem,Panel, Button} from 'react-bootstrap';
@@ -45,38 +48,50 @@ export default class EventList extends React.Component{
 
         var splitedDateId = Shared.splitDateId(this.props.location.state.dateId);
         return (
-            <Panel className="appFrame">
-                <Panel.Heading>
+            <Panel className="eventListFrame">
+                <Panel.Heading className="textCenter">
+                    Todo List &nbsp;&nbsp;
                     {splitedDateId.year} . {splitedDateId.month} . {splitedDateId.date}
                 </Panel.Heading>
 
                 <Panel.Body>
                     <ListGroup>{
                 this.state.eventList.map((item,index)=> {
-                    return <ListGroupItem key={index}> {item.eventContent} {item.eventTime}
-                    <Button className="btn btn-primary">Edit</Button>
-                        <Button className="btn btn-danger" onClick={(e)=>this.handleDelItem(e,item.eventTime,item.eventContent)}>Del</Button>
+                    return <ListGroupItem key={index}>
+                        <Button className="btn btn-primary eventBtn"><i class="far fa-edit"></i></Button>&nbsp;&nbsp;
+                        <Button className="btn btn-danger eventBtn" onClick={(e)=>this.handleDelItem(e,item.eventTime,item.eventContent)}>
+                            <i class="far fa-trash-alt"></i></Button>
+                        &nbsp;&nbsp;{item.eventContent} &nbsp;&nbsp; {item.eventTime}
+
                     </ListGroupItem>
                 })
                     }</ListGroup>
 
             <form>
+                <Button className="btn btn-primary" onClick={this.handleAddEvent}> <i class="far fa-plus-square"></i> </Button>
+                &nbsp;&nbsp;
                 <input type="text" placeholder="To Do" onChange={(e)=>{
                     this.setState({
                         addInput: e.target.value,
                         addTime: this.state.addTime
                     });
                 }}/>
+                &nbsp;&nbsp;
+
                 <input type="time" placeholder="Time" onChange={(e)=>{
                     this.setState({
                         addInput: this.state.addInput,
                         addTime: e.target.value
                     })
                 }}/>
-                <button onClick={this.handleAddEvent}> Add </button>
+
             </form>
                 </Panel.Body>
+                <Panel.Footer className="textCenter" >End</Panel.Footer>
+                <div className="textCenter" ><Link to="/calendar" className="btn btn-primary">OK</Link></div>
+
             </Panel>
+
         )
     }
 }
