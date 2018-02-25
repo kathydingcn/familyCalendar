@@ -23,6 +23,25 @@ import SignOut from './shared/signout';
 
 
 class App extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            token:{email:'', username:''}
+        }
+        this.handleTokenChange = this.handleTokenChange.bind(this);
+    }
+
+    handleTokenChange(email, username){
+        console.log('in appjs email username',email, username);
+        this.setState({token:{email:email, username:username}}, ()=>{
+
+            ReactDOM.findDOMNode(this.signinItem).innerHTML = "Welcome!  "+ this.state.token.username;
+            ReactDOM.findDOMNode(this.signinItem).className = "userNameText";
+            ReactDOM.findDOMNode(this.signupItem).innerHTML = '';
+
+        });
+    }
   render() {
     return (
       <div>
@@ -45,7 +64,7 @@ class App extends Component {
                     </Nav>
                     <Navbar.Collapse>
                         <Nav pullRight>
-                            <NavItem eventKey={4} ref={input=>this.signinItem = input}>
+                            <NavItem eventKey={4} ref={input=>this.signupItem = input}>
                                 <Link to="/signup"><i className="fas fa-user-plus" title="sign up"> </i> </Link>
                             </NavItem>
                             <NavItem eventKey={5} ref={input=>this.signinItem = input}>
@@ -63,18 +82,18 @@ class App extends Component {
             {/*<Route path="/" exact component={DatesCreater}/>*/}
             <Route path="/" exact render={(props)=><Home {...props}/>}/>
             <Route path="/home" exact render={(props)=><Home {...props}/>}/>
-            <Route path="/calendar" exact render={(props)=><DatesCreater {...props}/>}/>
-            <Route path="/calendar/eventlist/:id" exact render={(props)=><EventList {...props}/>}/>
+            <Route path="/calendar" exact render={(props)=><DatesCreater {...props} email={this.state.token.email} username={this.state.token.username}/>}/>
+            <Route path="/calendar/eventlist/:id" exact render={(props)=><EventList {...props} email={this.state.token.email} username={this.state.token.username}/>}/>
             <Route path="/signup" exact render={(props)=><SignUp {...props}/>}/>
-            <Route path="/signin" exact render={(props)=><SignIn {...props}/>}/>
-            <Route path="/signout" exact render={(props)=><SignOut {...props}/>}/>
+              <Route path="/signin" exact render={props=><SignIn {...props} onTokenChange={this.handleTokenChange}/>} />
+            <Route path="/signout" exact render={(props)=><SignOut {...props} onTokenChange={this.handleTokenChange}/>}/>
           </Switch>
 
             </div>
         </Router>
           <Navbar fixedBottom inverse className="footer_navbar">
               <div className="footer_font">
-                  <span>© 2018 Kathy Ding</span>
+                  <span>© 2018 Kai Ding</span>
                   <br/>
                   <span>Powered by kathyding.cn@gmail.com</span>
               </div>

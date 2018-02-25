@@ -25,6 +25,17 @@ export default class EventList extends React.Component{
 
     }
 
+    componentWillMount(){
+        axios.get('https://still-basin-43768.herokuapp.com/api/eventslists')
+            .then((res)=>{
+                console.log(res);
+                /*this.setState(()=>{
+                    return({eventList:res.data})
+                });*/
+            })
+            .catch((error)=>{throw(error)});
+    }
+
     handleAddEvent(e){
         e.preventDefault();
         this.setState({
@@ -47,6 +58,8 @@ export default class EventList extends React.Component{
     render(){
 
         var splitedDateId = Shared.splitDateId(this.props.location.state.dateId);
+
+        console.log('the props in evventlist is ====', this.props);
         return (
             <Panel className="eventListFrame">
                 <Panel.Heading className="textCenter">
@@ -88,7 +101,7 @@ export default class EventList extends React.Component{
             </form>
                 </Panel.Body>
                 <Panel.Footer className="textCenter" >End</Panel.Footer>
-                <div className="textCenter" ><Link to="/calendar" className="btn btn-primary">OK</Link></div>
+                <div className="textCenter" ><Link to="/calendar" className="btn btn-primary">Submit</Link></div>
 
             </Panel>
 

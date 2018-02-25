@@ -6,11 +6,22 @@
     "validateUpsert": true
   },
   "properties": {
-    "eventlist": {
-      "type": [
-        "object"
-      ]
-    }
+    "email":{
+      "type": "string"
+    },
+    "username":{
+      "type": "string"
+    },
+    "year":{
+      "type": "string"
+    },
+    "month":{
+      "type": "string"
+    },
+    "day":{
+      "type": "string"
+    },
+    "todolist":[{"content":"string","time":"string"}]
   },
   "validations": [],
   "relations": {},

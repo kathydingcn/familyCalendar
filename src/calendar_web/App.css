@@ -26,3 +26,10 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.userNameText{
+  color: #bbbbbb;
+  font-size: 18px;
+  vertical-align: middle;
+  margin-top:12px;
+}

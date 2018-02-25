@@ -16,9 +16,9 @@ export default class Login extends React.Component{
         super(props);
         this.state={
             email:'',
-            userName:'',
-            passWord:'',
-            passWord2:'',
+            username:'',
+            password:'',
+            password2:'',
             verifyPass:true
         }
     }
@@ -38,34 +38,34 @@ export default class Login extends React.Component{
             <div className="inputLabelBlock">
                 <label for="userEmail" ><i className="far fa-envelope"> </i> Family Email:</label>
                 <input name="userEmail" type="email" id="userEmail"  onChange={(e) => {
-                    this.setState({email: e.target.value, userName:this.state.userName,
-                        passWord: this.state.passWord, passWord2: this.state.passWord2, verifyPass:true})
+                    this.setState({email: e.target.value, username:this.state.username,
+                        password: this.state.password, password2: this.state.password2, verifyPass:true})
                 }}/>
             </div>
             <div className="inputLabelBlock">
                 <label ><i className="far fa-user"></i> User Name:</label>
                 <input type="text" onChange={(e) => {
-                    this.setState({email:this.state.email, userName:e.target.value,
-                        passWord: this.state.passWord, passWord2: this.state.passWord2, verifyPass:true})
+                    this.setState({email:this.state.email, username:e.target.value,
+                        password: this.state.password, password2: this.state.password2, verifyPass:true})
                 }}/>
             </div>
             <div className="inputLabelBlock">
                 <label><i className="fas fa-key"></i> PassWord:</label>
                 <input type="password" onChange={(e) => {
-                    this.setState({email:this.state.email, userName:this.state.userName,
-                        passWord: e.target.value, passWord2: this.state.passWord2, verifyPass:true})
+                    this.setState({email:this.state.email, username:this.state.username,
+                        password: e.target.value, password2: this.state.password2, verifyPass:true})
                 }}/>
             </div>
             <div className="inputLabelBlock">
                 <label>  PassWord Re-Type: </label>
                 <input type="password" className={this.isVerified(this.state.verifyPass)} onBlur={(e) => {
-                     if(this.state.passWord !== e.target.value){
+                     if(this.state.password !== e.target.value){
                          console.log('password not consistence');
                          this.setState({
                              email:this.state.email,
-                             userName:this.state.userName,
-                             passWord:this.state.passWord,
-                             passWord2:'',
+                             username:this.state.username,
+                             password:this.state.password,
+                             password2:'',
                              verifyPass:false
                          });
                      }
@@ -73,9 +73,9 @@ export default class Login extends React.Component{
                          console.log("consistence");
                          this.setState({
                              email:this.state.email,
-                             userName:this.state.userName,
-                             passWord:this.state.passWord,
-                             passWord2:'',
+                             username:this.state.username,
+                             password:this.state.password,
+                             password2:'',
                              verifyPass:true
                          });
                      }
@@ -83,33 +83,23 @@ export default class Login extends React.Component{
             </div>
             <div className="inputLabelBlock">
                 <Button  className="btn-primary signupBtn" onClick={()=>{
-                    // this.props.onTokenChange(this.state.userName);
+                    // this.props.onTokenChange(this.state.username);
                     this.setState((prevState, props)=>(
                         {email:prevState.email,
-                            userName:prevState.userName,
-                            passWord:prevState.passWord,
-                            passWord2:prevState.passWord2}
+                            username:prevState.username,
+                            password:prevState.password,
+                            password2:prevState.password2}
                     ));
                     console.log('in sign up this.props', this.props);
                     // this.props.history.push(this.props.location.state.from.pathname);
-/*                    axios.post('https://still-basin-43768.herokuapp.com/api/Users/login',{
-                        username:this.state.userName,
-                        email: this.state.email,
-                        password: this.state.passWord
-                    })
-                        .then(({data})=>{
-                            console.log("data from post is", data);
-                            this.props.history.push( "/");
-                        })
-                        .catch((err)=>{throw(err)});*/
 
-                    axios.post('https://still-basin-43768.herokuapp.com/api/eventslists',{
-                        events:[{email:'123@gmail.com',name:'dingding',year:2018,month:2,date:18,time:'0203'},
-                            {email:'456@gmail.com',name:'huang',year:2018,month:2,date:23,time:'0434'}]
+
+                    axios.post('https://still-basin-43768.herokuapp.com/api/userslists',{
+                         email: this.state.email, username: this.state.username, password: this.state.password
                     })
                         .then(({data})=>{
                             console.log("data from post is", data);
-                            this.props.history.push( "/");
+                            this.props.history.push( "/calendar");
                         })
                         .catch((err)=>{throw(err)});
 
