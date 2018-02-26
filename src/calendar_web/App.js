@@ -27,20 +27,19 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-            token:{email:'', username:''}
+            token:{email:'', username:''},
+            isLogin: false
         }
         this.handleTokenChange = this.handleTokenChange.bind(this);
     }
 
-    handleTokenChange(email, username){
-        console.log('in appjs email username',email, username);
-        this.setState({token:{email:email, username:username}}, ()=>{
+    handleTokenChange(email, username, isLogin){
 
-            ReactDOM.findDOMNode(this.signinItem).innerHTML = "Welcome!  "+ this.state.token.username;
-            ReactDOM.findDOMNode(this.signinItem).className = "userNameText";
-            ReactDOM.findDOMNode(this.signupItem).innerHTML = '';
-
+        this.setState({
+            token:{email:email, username:username},
+            isLogin: isLogin
         });
+
     }
   render() {
     return (
@@ -65,10 +64,19 @@ class App extends Component {
                     <Navbar.Collapse>
                         <Nav pullRight>
                             <NavItem eventKey={4} ref={input=>this.signupItem = input}>
-                                <Link to="/signup"><i className="fas fa-user-plus" title="sign up"> </i> </Link>
+                                {
+                                    this.state.isLogin?
+                                null : <Link to="/signup">
+                                        <i className="fas fa-user-plus" title="sign up"> </i>
+                                    </Link>
+                                }
                             </NavItem>
                             <NavItem eventKey={5} ref={input=>this.signinItem = input}>
-                                <Link to="/signin"><i className="fas fa-sign-in-alt" title="sign in"> </i></Link>
+                                {
+                                    this.state.isLogin?
+                                    <span className="userNameText">Welcome , {this.state.token.username}</span>:
+                                    <Link to="/signin"><i className="fas fa-sign-in-alt" title="sign in"> </i></Link>
+                                }
                             </NavItem>
                             <NavItem eventKey={6} >
                                 <Link to="/signout"><i className="fas fa-sign-out-alt"  title="sign out"> </i></Link>

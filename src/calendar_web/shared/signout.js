@@ -8,10 +8,16 @@ import {ListGroup,ListGroupItem,Panel, Button} from 'react-bootstrap';
 import Shared from './shared';
 
 export default class SignOut extends React.Component{
-
+    constructor(props){
+        super(props);
+    }
     render(){
-        return(
-            <div>SignOut</div>
+        this.props.onTokenChange('','',false);
+        this.props.history.push("/home");
+        return (
+            <div></div>
         )
     }
-}
+
+
+};
