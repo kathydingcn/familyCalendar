@@ -1,0 +1,28 @@
+.textCenter{
+    text-align:center;
+}
+
+.eventListFrame{
+    width:70%;
+}
+.calContainer{
+    display:flex;
+}
+.myCal{
+    flex:1;
+    text-align:center;
+}
+
+.otherCal{
+    flex:1;
+    text-align:center;
+}
+
+.panelFrame{
+    width: 60%;
+    margin: 0 auto;
+}
+.gap {
+    flex: 0.1;
+    border-right: 0.01rem dashed #ddd;
+}
