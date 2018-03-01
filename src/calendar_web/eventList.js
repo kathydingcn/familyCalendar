@@ -15,6 +15,7 @@ import Shared from './shared/shared';
 export default class EventList extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
             isExisting: false,
             addInput: '',
@@ -25,7 +26,8 @@ export default class EventList extends React.Component {
             year: Shared.splitDateId(this.props.location.state.dateId).year,
             month: Shared.splitDateId(this.props.location.state.dateId).month,
             day: Shared.splitDateId(this.props.location.state.dateId).date,
-            id: ''
+            id: '',
+            otherMembers: []
         }
         this.handleAddEvent = this.handleAddEvent.bind(this);
         this.handleDelItem = this.handleDelItem.bind(this);
@@ -33,37 +35,44 @@ export default class EventList extends React.Component {
     }
 
     componentWillMount() {
+
         console.log("==========this.state in will monut", this.state);
 
-        axios.get(`https://still-basin-43768.herokuapp.com/api/eventslists?filter[where][email]=${this.state.email}&filter[where][day]=${this.state.day}&filter[where][username]=${this.state.username}&filter[where][year]=${this.state.year}&filter[where][month]=${this.state.month}`)
+        axios.get(`https://still-basin-43768.herokuapp.com/api/eventslists?filter[where][email]=${this.state.email}&filter[where][day]=${this.state.day}&filter[where][year]=${this.state.year}&filter[where][month]=${this.state.month}`)
             .then((res) => {
                 console.log('in will mount res ::', res);
                 if (res.data.length !== 0) {
-                    console.log("get todolist from db: ", res.data[0].todolist);
-                    this.setState({
-                        isExisting: true,
-                        email: this.state.email,
-                        username: this.state.username,
-                        year: this.state.year,
-                        month: this.state.month,
-                        day: this.state.day,
-                        todolist: res.data[0].todolist.slice(0),
-                        id: res.data[0].id
-                    });
-                } else {
-                    this.setState({
-                        isExisting: false,
-                        email: this.state.email,
-                        username: this.state.username,
-                        year: this.state.year,
-                        month: this.state.month,
-                        day: this.state.day,
-                        todolist: this.state.todolist,
-                        id: ''
-                    });
-                    console.log("get 0 record from todolist");
-                }
+                    res.data.forEach((item,index)=>{
+                        if(item.username === this.state.username){
+                           this.setState({
+                               isExisting: true,
+                               id: item.id,
+                               todolist: item.todolist.slice(0),
+                               email: this.state.email,
+                               year: this.state.year,
+                               month: this.state.month,
+                               day: this.state.day
 
+                           });
+                        }else{
+
+                            this.setState({
+                                otherMembers: [...this.state.otherMembers, {
+                                    isExisting: this.state.isExisting,
+                                    email: this.state.email,
+                                    year: this.state.year,
+                                    month: this.state.month,
+                                    day: this.state.day,
+                                    id: this.state.id,
+                                    username: item.username,
+                                    todolist: item.todolist,
+                                }]
+                            });
+                        }
+                    });
+
+                }
+                // console.log("res from db otherMembers is ***", this.state.otherMembers);
             })
             .catch((error) => {
                 throw(error)
@@ -143,7 +152,7 @@ export default class EventList extends React.Component {
             <Panel.Heading> Family Members Events at {this.state.year} . {parseInt(this.state.month) + 1} . {this.state.day}</Panel.Heading>
             <Panel.Body >
                 <div className="calContainer">
-                    <div className="myCal"> my calendar
+                    <div className="myCal"> <i className="fas fa-user-circle"></i> My Calendar
                         <Panel className="eventListFrame">
                             <Panel.Heading className="textCenter">
                                 To do List &nbsp;&nbsp;
@@ -191,7 +200,19 @@ export default class EventList extends React.Component {
                         </Panel>
                     </div>
                     <div className="gap"></div>
-                    <div className="otherCal"> other members' calendar</div>
+                    <div className="otherCal"> Other Members' Calendar
+                        <ListGroup>
+
+                            {this.state.otherMembers.length>0 ? this.state.otherMembers.map((item, index)=>{
+
+                                return <ListGroupItem id={item.id}> <i className="fas fa-user-circle"></i> {item.username}
+                                <br />
+                                {item.todolist.map((todoItem,todoIndex)=>{
+                                    return(<span id={item.id+todoIndex}> {todoItem.content} -- {todoItem.time} <br /></span>)
+                                })}</ListGroupItem>
+                            }) : null}
+                            </ListGroup>
+                    </div>
                 </div>
             </Panel.Body>
 

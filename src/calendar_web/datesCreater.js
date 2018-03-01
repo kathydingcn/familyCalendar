@@ -13,6 +13,9 @@ import EventList from './eventList';
 
 export default class DatesCreater extends React.Component {
 
+
+
+
     constructor(props) {
         super(props);
         var currentDate = new Date();
@@ -26,7 +29,8 @@ export default class DatesCreater extends React.Component {
             currentYear: currentYear,
             currentMonth: currentMonth,
             createFlag: createFlag, //1: create Li, 0: update Li
-            datesList: datesList
+            datesList: datesList,
+            circleDays: []
         }
         this.handlePrev = this.handlePrev.bind(this);
         this.handleNext = this.handleNext.bind(this);
@@ -34,6 +38,31 @@ export default class DatesCreater extends React.Component {
 
     }
 
+    componentWillMount(){
+        var myCircleDays = [];
+
+        axios.get(`https://still-basin-43768.herokuapp.com/api/eventslists?filter[where][email]=${this.props.email}&filter[where][year]=${this.state.currentYear}&filter[where][month]=${this.state.currentMonth}`)
+            .then((res) => {
+                if(res.data.length > 0){
+
+                    res.data.forEach((item, index)=>{
+                        console.log("from datescreate, the active   month day is ========", item.month, item.day);
+                        myCircleDays.push(item.day );
+                    });
+                    console.log("currentMonth is ", this.state.currentMonth);
+                    this.setState({
+                        currentYear: this.state.currentYear,
+                        currentMonth: this.state.currentMonth,
+                        createFlag: this.state.createFlag,
+                        datesList: this.state.datesList,
+                        circleDays: myCircleDays.slice(0)
+                    });
+                }
+            }).catch((err)=>{
+            throw(err);
+        });
+        console.log(' circleDays in componentwillmount', this.state.circleDays);
+    }
     handleSelect(eventKey) {
         eventKey.preventDefault();
         alert(`selected ${eventKey}`);
@@ -44,6 +73,8 @@ export default class DatesCreater extends React.Component {
 
         var currentMonth;
         var currentYear;
+        var myCircleDays = [];
+
 
         if (this.state.currentMonth === 0) {
             currentMonth = 11;
@@ -59,8 +90,35 @@ export default class DatesCreater extends React.Component {
             currentYear: currentYear,
             currentMonth: currentMonth,
             createFlag: this.state.createFlag,
-            datesList: datesList
+            datesList: datesList,
+            circleDays: []
+        }, ()=>{
+            axios.get(`https://still-basin-43768.herokuapp.com/api/eventslists?filter[where][email]=${this.props.email}&filter[where][year]=${this.state.currentYear}&filter[where][month]=${this.state.currentMonth}`)
+                .then((res) => {
+                    if(res.data.length > 0){
+
+                        res.data.forEach((item, index)=>{
+                            console.log("from datescreate, the active   month day is ========", item.month, item.day);
+                            myCircleDays.push(item.day );
+                        });
+                        console.log("currentMonth is ", this.state.currentMonth);
+                        this.setState({
+                            currentYear: this.state.currentYear,
+                            currentMonth: this.state.currentMonth,
+                            createFlag: this.state.createFlag,
+                            datesList: this.state.datesList,
+                            circleDays: myCircleDays.slice(0)
+                        });
+                    }
+                }).catch((err)=>{
+                throw(err);
+            });
         });
+
+
+
+
+
 
 
     }
@@ -68,6 +126,7 @@ export default class DatesCreater extends React.Component {
     handleNext() {
         var currentMonth;
         var currentYear;
+        var myCircleDays = [];
 
         if (this.state.currentMonth === 11) {
             currentMonth = 0;
@@ -83,8 +142,33 @@ export default class DatesCreater extends React.Component {
             currentYear: currentYear,
             currentMonth: currentMonth,
             createFlag: this.state.createFlag,
-            datesList: datesList
+            datesList: datesList,
+            circleDays: []
+        },()=>{
+            axios.get(`https://still-basin-43768.herokuapp.com/api/eventslists?filter[where][email]=${this.props.email}&filter[where][year]=${this.state.currentYear}&filter[where][month]=${this.state.currentMonth}`)
+                .then((res) => {
+                    if(res.data.length > 0){
+
+                        res.data.forEach((item, index)=>{
+                            console.log("from datescreate, the active   month day is ========", item.month, item.day);
+                            myCircleDays.push(item.day );
+                        });
+                        console.log("currentMonth is ", this.state.currentMonth);
+                        this.setState({
+                            currentYear: this.state.currentYear,
+                            currentMonth: this.state.currentMonth,
+                            createFlag: this.state.createFlag,
+                            datesList: this.state.datesList,
+                            circleDays: myCircleDays.slice(0)
+                        });
+                    }
+                }).catch((err)=>{
+                throw(err);
+            });
         });
+
+
+
     }
 
 
@@ -117,9 +201,22 @@ export default class DatesCreater extends React.Component {
         return datesList;
     }
 
+    hasActiveEvent(day){
+        console.log('day is -------', day);
+        console.log('in hasActiveEvent day,  this.state.circleDays', day, this.state.circleDays);
+        if(this.state.circleDays.indexOf(day) === -1){
+            return "datesLi activeLi";
+        }else
+        {
+            return "datesLi activeLi myCircle";
+        }
+    }
+
+
+
     render() {
 
-        var monthShow = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        // var monthShow = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
         return (
             <div className="appFrame">
@@ -144,7 +241,7 @@ export default class DatesCreater extends React.Component {
                                 {this.state.datesList.map((item, index) => {
 
                                         if (item.thisMonth) {
-                                            return <li key={index} className="datesLi activeLi"
+                                            return <li   className={this.hasActiveEvent(item.date.toString())} key={index}
                                                        onClick={() => {
 
                                                            var id = ShardFuns.createDateId(this.state.currentYear, this.state.currentMonth, item.date);
