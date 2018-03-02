@@ -42,4 +42,13 @@
 margin-top: 0.15rem;
 }
 
+.verifyDisplayNone{
+. visibility:hidden;
+}
+.verifyDisplay{
+    visibility: visible;
+    display:inline-block;
+    height:16px;
+    width:16px!important;
+}
 

@@ -25,7 +25,7 @@ export default class SignIn extends React.Component{
             <div>
 
                 <Panel className="appFrame">
-                    <h3> Please login with family email and user name</h3>
+                    <h3> &#10035; &#10035; &#10035; Login  &#10035; &#10035; &#10035;</h3>
                     <Panel.Body className="panelBody">
                         <div className="inputLabelBlock">
                             <label htmlFor="userEmail" ><i className="far fa-envelope"> </i> Family Email:</label>
@@ -53,17 +53,18 @@ export default class SignIn extends React.Component{
                             <Button  className="btn-primary signupBtn" onClick={()=>{
                                 // this.props.history.push(this.props.location.state.from.pathname);
 
-                            axios.get(`https://still-basin-43768.herokuapp.com/api/userslists/findOne?filter[where][username]=${this.state.username}`)
-                                .then((data)=>{
-                                // alert("Login Success", data.data.username); //need write a common function later
-                                console.log('data from query user id', data);
-                                    this.props.onTokenChange(this.state.email, this.state.username, true);
-                                    this.setState((prevState, props)=>(
-                                        {email:prevState.email,
-                                            username:prevState.username,
-                                            password:prevState.password }
-                                    ));
-                                this.props.history.push("/home");
+                            axios.get(`https://still-basin-43768.herokuapp.com/api/userslists?filter[where][username]=${this.state.username}&filter[where][email]=${this.state.email}`)
+                                .then((res)=>{
+                                if(res){
+                                    if(res.data.length > 0){
+                                        this.props.onTokenChange(this.state.email, this.state.username, true);
+                                        this.props.history.push("/home");
+                                    }else{
+                                        alert("The username does not exist, please sign up firstly");
+                                        this.props.history.push("/signup");
+                                    }
+                                }
+
                                 })
                                 .catch((err)=>{
                                 alert("Login Failed...");
