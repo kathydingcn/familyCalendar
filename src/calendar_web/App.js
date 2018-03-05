@@ -8,6 +8,7 @@ import {
     Link
 } from 'react-router-dom';
 
+import { LinkContainer } from 'react-router-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import {Navbar, Nav, MenuItem, NavItem} from 'react-bootstrap';
 
@@ -48,6 +49,7 @@ class App extends Component {
             <div>
                 <Router>
                     <div>
+
                         <Navbar inverse collapseOnSelect>
                             <Navbar.Header>
                                 <Navbar.Brand>
