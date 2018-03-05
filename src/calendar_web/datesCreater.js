@@ -14,8 +14,6 @@ import EventList from './eventList';
 export default class DatesCreater extends React.Component {
 
 
-
-
     constructor(props) {
         super(props);
         var currentDate = new Date();
@@ -38,16 +36,16 @@ export default class DatesCreater extends React.Component {
 
     }
 
-    componentWillMount(){
+    componentWillMount() {
         var myCircleDays = [];
 
         axios.get(`https://still-basin-43768.herokuapp.com/api/eventslists?filter[where][email]=${this.props.email}&filter[where][year]=${this.state.currentYear}&filter[where][month]=${this.state.currentMonth}`)
             .then((res) => {
-                if(res.data.length > 0){
+                if (res.data.length > 0) {
 
-                    res.data.forEach((item, index)=>{
-                        console.log("from datescreate, the active   month day is ========", item.month, item.day);
-                        myCircleDays.push(item.day );
+                    res.data.forEach((item, index) => {
+                        // console.log("from datescreate, the active   month day is ========", item.month, item.day);
+                        myCircleDays.push(item.day);
                     });
                     console.log("currentMonth is ", this.state.currentMonth);
                     this.setState({
@@ -58,11 +56,12 @@ export default class DatesCreater extends React.Component {
                         circleDays: myCircleDays.slice(0)
                     });
                 }
-            }).catch((err)=>{
+            }).catch((err) => {
             throw(err);
         });
         console.log(' circleDays in componentwillmount', this.state.circleDays);
     }
+
     handleSelect(eventKey) {
         eventKey.preventDefault();
         alert(`selected ${eventKey}`);
@@ -92,14 +91,14 @@ export default class DatesCreater extends React.Component {
             createFlag: this.state.createFlag,
             datesList: datesList,
             circleDays: []
-        }, ()=>{
+        }, () => {
             axios.get(`https://still-basin-43768.herokuapp.com/api/eventslists?filter[where][email]=${this.props.email}&filter[where][year]=${this.state.currentYear}&filter[where][month]=${this.state.currentMonth}`)
                 .then((res) => {
-                    if(res.data.length > 0){
+                    if (res.data.length > 0) {
 
-                        res.data.forEach((item, index)=>{
-                            console.log("from datescreate, the active   month day is ========", item.month, item.day);
-                            myCircleDays.push(item.day );
+                        res.data.forEach((item, index) => {
+                            // console.log("from datescreate, the active   month day is ========", item.month, item.day);
+                            myCircleDays.push(item.day);
                         });
                         console.log("currentMonth is ", this.state.currentMonth);
                         this.setState({
@@ -110,15 +109,10 @@ export default class DatesCreater extends React.Component {
                             circleDays: myCircleDays.slice(0)
                         });
                     }
-                }).catch((err)=>{
+                }).catch((err) => {
                 throw(err);
             });
         });
-
-
-
-
-
 
 
     }
@@ -144,16 +138,16 @@ export default class DatesCreater extends React.Component {
             createFlag: this.state.createFlag,
             datesList: datesList,
             circleDays: []
-        },()=>{
+        }, () => {
             axios.get(`https://still-basin-43768.herokuapp.com/api/eventslists?filter[where][email]=${this.props.email}&filter[where][year]=${this.state.currentYear}&filter[where][month]=${this.state.currentMonth}`)
                 .then((res) => {
-                    if(res.data.length > 0){
+                    if (res.data.length > 0) {
 
-                        res.data.forEach((item, index)=>{
-                            console.log("from datescreate, the active   month day is ========", item.month, item.day);
-                            myCircleDays.push(item.day );
+                        res.data.forEach((item, index) => {
+                            // console.log("from datescreate, the active   month day is ========", item.month, item.day);
+                            myCircleDays.push(item.day);
                         });
-                        console.log("currentMonth is ", this.state.currentMonth);
+                        // console.log("currentMonth is ", this.state.currentMonth);
                         this.setState({
                             currentYear: this.state.currentYear,
                             currentMonth: this.state.currentMonth,
@@ -162,11 +156,10 @@ export default class DatesCreater extends React.Component {
                             circleDays: myCircleDays.slice(0)
                         });
                     }
-                }).catch((err)=>{
+                }).catch((err) => {
                 throw(err);
             });
         });
-
 
 
     }
@@ -183,16 +176,13 @@ export default class DatesCreater extends React.Component {
 
         activeDate.setDate(diff);  //计算出日历的开始日期
 
-
         for (var i = 0; i < 42; i++) {
             var date = activeDate.getDate();
 
             if (activeDate.getMonth() !== month) {
                 datesList.push({date: date, thisMonth: false});
-                // console.log('date is ===not this month=====', date);
             } else {
                 datesList.push({date: date, thisMonth: true});
-                // console.log('date is ******* ', date);
             }
 
             activeDate.setDate(date + 1);
@@ -201,17 +191,15 @@ export default class DatesCreater extends React.Component {
         return datesList;
     }
 
-    hasActiveEvent(day){
-        console.log('day is -------', day);
-        console.log('in hasActiveEvent day,  this.state.circleDays', day, this.state.circleDays);
-        if(this.state.circleDays.indexOf(day) === -1){
+    hasActiveEvent(day) {
+        // console.log('day is -------', day);
+        // console.log('in hasActiveEvent day,  this.state.circleDays', day, this.state.circleDays);
+        if (this.state.circleDays.indexOf(day) === -1) {
             return "datesLi activeLi";
-        }else
-        {
+        } else {
             return "datesLi activeLi myCircle";
         }
     }
-
 
 
     render() {
@@ -220,11 +208,7 @@ export default class DatesCreater extends React.Component {
 
         return (
             <div className="appFrame">
-                <Tabs defaultActiveKey={1} id="calendar_tabs" className="tabsFrame">
-                    <Tab eventKey={1} title=" My Calendar">
-
                         <div className="datesFrame">
-
                             <h6><Button id="prevButton" className="btn" onClick={this.handlePrev}>Prev</Button>
                                 <div id="datesTitle">{this.state.currentYear} . {this.state.currentMonth + 1}</div>
                                 <Button className="btn" id="nextButton" onClick={this.handleNext}>Next</Button></h6>
@@ -241,45 +225,37 @@ export default class DatesCreater extends React.Component {
                                 {this.state.datesList.map((item, index) => {
 
                                         if (item.thisMonth) {
-                                            return <li   className={this.hasActiveEvent(item.date.toString())} key={index}
+                                            return <li className={this.hasActiveEvent(item.date.toString())} key={index}
                                                        onClick={() => {
 
                                                            var id = ShardFuns.createDateId(this.state.currentYear, this.state.currentMonth, item.date);
-                                                           console.log('id is ', id);
+                                                           console.log('******id in datesCreates is *******', id);
 
                                                            this.props.history.push({
                                                                pathname: `/calendar/eventlist/${id}`,
-                                                               state: {dateId: id, email:this.props.email, username:this.props.username}
+                                                               state: {
+                                                                   dateId: id,
+                                                                   email: this.props.email,
+                                                                   username: this.props.username
+                                                               }
                                                            });
 
-                                                           console.log('this props', this.props);
+                                                           console.log('*******this props in datesCreates *******', this.props);
                                                            return <EventList history={this.props.history}
                                                                              location={this.props.location}
-                                                                                email={this.props.email}
-                                                                                username={this.props.username}/>
+                                                                             email={this.props.email}
+                                                                             username={this.props.username}/>
 
                                                        }}>
                                                 {item.date}</li>;
                                         } else {
                                             return <li key={index} className="datesLi inactiveLi">{item.date}</li>;
                                         }
-
                                     }
                                 )}
                             </ul>
-
                         </div>
-                    </Tab>
-
-                    <Tab eventKey={2} title=" Member1's Calendar">
-                        <div className="tabsFrame"> member1's calendar</div>
-                    </Tab>
-                    <Tab eventKey={3} title=" Member2's Calendar">
-                        Member2's Calendar
-                    </Tab>
-                </Tabs>
             </div>
-
 
         )
     }

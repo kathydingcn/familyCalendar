@@ -52,3 +52,40 @@ margin-top: 0.15rem;
     width:16px!important;
 }
 
+
+.popup {
+    position: fixed;
+/*    width: 25%;
+    height: 30%;*/
+    width:230px;
+    height:200px;
+    /*top: 0;*/
+    left: 0;
+    right: 0;
+    bottom: 50%;
+    margin: auto;
+    /*background-color: #AAB7B8;*/
+    /*opacity:0.8;*/
+    border-radius: 5%;
+    text-align:center;
+}
+.popup_title{
+    padding: 0.05rem;
+    font-size: 20px;
+    height: 40px;
+    line-height:30px;
+}
+.popup_inner {
+    position: absolute;
+    text-align:center;
+    width:100%;
+    height:100%;
+    padding:0.1rem;
+    margin:0 auto;
+}
+.popup_btn {
+    position: absolute;
+    bottom: 60px;
+    right:91px;
+}
+
