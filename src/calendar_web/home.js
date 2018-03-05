@@ -5,11 +5,11 @@ import React from 'react';
 
 
 import './datesContainer.css';
-import {Carousel,img,Panel, Button} from 'react-bootstrap';
+import {Carousel,img} from 'react-bootstrap';
 import img1 from './shared/img1.png'
 import img2 from './shared/img2.png'
 import img3 from './shared/img3.png'
-import Shared from './shared/shared';
+// import Shared from './shared/shared';
 
 export default class Home extends React.Component{
 

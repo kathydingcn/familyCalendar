@@ -6,7 +6,7 @@ import axios from 'axios';
 
 
 import './datesContainer.css';
-import {Tab, Tabs, Button} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 
 import ShardFuns from './shared/shared';
 import EventList from './eventList';

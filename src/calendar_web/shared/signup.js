@@ -1,10 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import {Button, Panel, Popover} from 'react-bootstrap';
+import {Button, Panel} from 'react-bootstrap';
 import Popup from './popup';
 
 import './sharedCSS.css';
-import Shared from './shared';
+// import Shared from './shared';
 
 
 export default class Login extends React.Component {
@@ -40,9 +40,7 @@ export default class Login extends React.Component {
         this.props.history.push("/signin");
     }
 
-    componentDidMount(){
 
-    }
 
     handleSubmit(){
         {

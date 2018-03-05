@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import {
     BrowserRouter as Router,
     Route,
@@ -8,9 +8,9 @@ import {
     Link
 } from 'react-router-dom';
 
-import { LinkContainer } from 'react-router-bootstrap';
+// import { LinkContainer } from 'react-router-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import {Navbar, Nav, MenuItem, NavItem} from 'react-bootstrap';
+import {Navbar, Nav, NavItem} from 'react-bootstrap';
 
 
 import './App.css';

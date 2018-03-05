@@ -1,7 +1,7 @@
 /**
  * Created by kathy on 20/02/2018.
  */
-import React from 'react';
+// import React from 'react';
 
 const ShardFuns = {
     createDateId (year, month, date){

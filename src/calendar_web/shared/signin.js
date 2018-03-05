@@ -36,8 +36,8 @@ export default class SignIn extends React.Component {
             popup: {showPopup: false, title: '', content: ''}});
         if (this.state.popup.goWhere === 1) {
 
-            this.props.history.push(this.props.location.state.from.pathname);
-            // this.props.history.push("/home");
+            // this.props.history.push(this.props.location.state.from.pathname);
+            this.props.history.push("/home");
         } else if (this.state.popup.goWhere === -1) {
             this.props.history.push("/signup");
         }

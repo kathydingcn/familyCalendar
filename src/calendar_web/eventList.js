@@ -149,7 +149,7 @@ export default class EventList extends React.Component {
         return (
 
         <Panel className="panelFrame">
-            <Panel.Heading> Family Members Events at {this.state.year} . {parseInt(this.state.month) + 1} . {this.state.day}</Panel.Heading>
+            <Panel.Heading> Family Members Events at {this.state.year} . {parseInt(this.state.month,10) + 1} . {this.state.day}</Panel.Heading>
             <Panel.Body >
                 <div className="calContainer">
                     <div className="myCal"> <i className="fas fa-user-circle"></i> My Calendar
